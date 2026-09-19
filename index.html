@@ -25,24 +25,36 @@
     body { background-color: var(--bg); color: var(--text); margin: 0; padding: 16px; }
     .container { max-width: 500px; margin: 0 auto; }
 
-    /* Splash Screen som dekker hele skjermen */
+    /* Fullskjerms Splash Screen - perfekt midtstilt horisontalt og vertikalt */
     #splash-screen {
       position: fixed;
-      top: 0;
-      left: 0;
+      inset: 0;
       width: 100vw;
       height: 100vh;
       background-color: #ffffff;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 9999;
-      transition: opacity 0.3s ease-out;
+      transition: opacity 0.35s ease-out;
+      user-select: none;
     }
+    /* Ikonet fyller 3/4 (75%) av skjermens bredde */
     #splash-screen img {
-      width: 140px;
-      height: 140px;
+      width: 75vmin;
+      max-width: 75vw;
+      height: auto;
       object-fit: contain;
+    }
+    /* App-navnet under ikonet */
+    #splash-screen h1 {
+      margin-top: 20px;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      text-align: center;
     }
 
     .card { background: var(--card-bg); border-radius: 12px; padding: 16px; border: 1px solid var(--border); margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
@@ -64,9 +76,10 @@
 </head>
 <body>
 
-  <!-- Splash Screen (vises i 1200ms) -->
+  <!-- Splash Screen (vises i 2 sekunder) -->
   <div id="splash-screen">
-    <img src="mateIcon.svg" alt="BitchHeatr Splash">
+    <img src="mateIcon.svg" alt="BitchHeatr Logo">
+    <h1>BitchHeatr</h1>
   </div>
 
   <div class="container">
@@ -111,15 +124,15 @@
   </div>
 
   <script>
-    // Splash screen timer på 1200 ms
+    // Splash screen timer på 2000 ms (2 sekunder)
     window.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         const splash = document.getElementById('splash-screen');
         if (splash) {
           splash.style.opacity = '0';
-          setTimeout(() => splash.remove(), 300);
+          setTimeout(() => splash.remove(), 350);
         }
-      }, 1200);
+      }, 2000);
     });
 
     const defaultData = {

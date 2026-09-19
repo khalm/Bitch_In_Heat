@@ -25,7 +25,7 @@
     body { background-color: var(--bg); color: var(--text); margin: 0; padding: 16px; }
     .container { max-width: 500px; margin: 0 auto; }
 
-    /* Fullskjerms Splash Screen - perfekt midtstilt horisontalt og vertikalt */
+    /* Fullskjerms Splash Screen - starter usynlig for fade-in */
     #splash-screen {
       position: fixed;
       inset: 0;
@@ -36,11 +36,16 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      padding-bottom: 12vh;
       z-index: 9999;
-      transition: opacity 0.35s ease-out;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
       user-select: none;
     }
-    /* Ikonet fyller 3/4 (75%) av skjermens bredde */
+    #splash-screen.visible {
+      opacity: 1;
+    }
+    /* Ikonet fyller 3/4 av skjermstørrelsen */
     #splash-screen img {
       width: 75vmin;
       max-width: 75vw;
@@ -76,7 +81,7 @@
 </head>
 <body>
 
-  <!-- Splash Screen (vises i 2 sekunder) -->
+  <!-- Splash Screen (Fade in 800ms -> vis i 3s -> Fade out 800ms) -->
   <div id="splash-screen">
     <img src="mateIcon.svg" alt="BitchHeatr Logo">
     <h1>BitchHeatr</h1>
@@ -124,15 +129,25 @@
   </div>
 
   <script>
-    // Splash screen timer på 2000 ms (2 sekunder)
+    // Splash-animasjon: 800ms fade-in -> 3000ms på skjermen -> 800ms fade-out
     window.addEventListener('DOMContentLoaded', () => {
+      const splash = document.getElementById('splash-screen');
+      if (!splash) return;
+
+      // Start fade-in like etter innlasting
+      requestAnimationFrame(() => {
+        splash.classList.add('visible');
+      });
+
+      // 800ms fade-in + 3000ms visning = 3800ms før fade-out starter
       setTimeout(() => {
-        const splash = document.getElementById('splash-screen');
-        if (splash) {
-          splash.style.opacity = '0';
-          setTimeout(() => splash.remove(), 350);
-        }
-      }, 2000);
+        splash.classList.remove('visible');
+
+        // Fjern elementet fra DOM når fade-out (800ms) er ferdig
+        setTimeout(() => {
+          splash.remove();
+        }, 800);
+      }, 3800);
     });
 
     const defaultData = {

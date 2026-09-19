@@ -100,6 +100,16 @@
       background: transparent;
     }
 
+    /* FIX: Skjul flickring ved perfekt loop */
+    @keyframes fadeInLoop {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    .smooth-loop {
+      animation: fadeInLoop 0.1s ease-in forwards;
+      will-change: opacity;
+    }
+
     /* Fallback-animasjoner for SVG */
     @keyframes wagAnimation {
       0% { transform: rotate(-5deg); }
@@ -176,9 +186,9 @@
         
         <label>Velg rase/avatar</label>
         <div class="avatar-picker-container">
-          <!-- Spaniel (spanielAnim_new.webm) -->
+          <!-- Spaniel (spanielAnim_new.webm med smooth-loop fix) -->
           <div class="avatar-opt selected" onclick="selectAvatarChoice('spaniel')" id="opt-spaniel">
-            <video src="spanielAnim_new.webm" autoplay loop muted playsinline></video>
+            <video src="spanielAnim_new.webm" autoplay loop muted playsinline class="smooth-loop"></video>
             Spaniel
           </div>
 
@@ -283,9 +293,9 @@
       }, 1800);
     });
 
-    // Avatardefinisjoner
+    // Avatardefinisjoner (La til smooth-loop fix her)
     const AVATARS = {
-      spaniel: `<video src="spanielAnim_new.webm" autoplay loop muted playsinline></video>`,
+      spaniel: `<video src="spanielAnim_new.webm" autoplay loop muted playsinline class="smooth-loop"></video>`,
       golden: `
         <svg viewBox="0 0 80 80">
           <path class="anim-wag" d="M 28 50 Q 15 45 14 36 Q 20 40 28 47" fill="#d97706" />
@@ -451,6 +461,14 @@
 
       const avatarContent = AVATARS[dog.avatar] || AVATARS['spaniel'];
       document.getElementById('currentDogAvatar').innerHTML = avatarContent;
+
+      // FIX: Force CSS animation refresh when new video is injected
+      const videos = document.getElementById('currentDogAvatar').getElementsByTagName('video');
+      if (videos.length > 0) {
+          videos[0].style.animation = 'none';
+          videos[0].offsetHeight; /* trigger reflow */
+          videos[0].style.animation = null;
+      }
 
       const intervals = [];
       for (let i = 1; i < dog.cycles.length; i++) {

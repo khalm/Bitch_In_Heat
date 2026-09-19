@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#dc2626">
   <title>Løpetidskontroll</title>
 
-  <!-- PWA Manifest som peker på appIcon.png -->
-  <link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22L%C3%B8petidskontroll%22%2C%22short_name%22%3A%22L%C3%B8petid%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%23dc2626%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22appIcon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
+  <!-- PWA Manifest med maskable icon for full størrelse på Android -->
+  <link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22L%C3%B8petidskontroll%22%2C%22short_name%22%3A%22L%C3%B8petid%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%23dc2626%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22appIcon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
 
   <style>
     :root {
@@ -25,9 +25,9 @@
     body { background-color: var(--bg); color: var(--text); margin: 0; padding: 16px; }
     .container { max-width: 500px; margin: 0 auto; }
     
-    .header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-    .header img { width: 48px; height: 48px; object-fit: contain; background: transparent; }
-    .header h1 { font-size: 1.35rem; margin: 0; }
+    .header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .header img { width: 80px; height: 80px; object-fit: contain; background: transparent; flex-shrink: 0; }
+    .header h1 { font-size: 1.5rem; margin: 0; }
 
     .card { background: var(--card-bg); border-radius: 12px; padding: 16px; border: 1px solid var(--border); margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
     label { font-size: 0.85rem; font-weight: 600; color: var(--muted); display: block; margin-bottom: 6px; }

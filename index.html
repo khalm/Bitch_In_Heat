@@ -118,7 +118,7 @@
       animation: breatheBody 1.3s ease-in-out infinite;
     }
 
-    /* Stor rasevelger (96px animasjoner) */
+    /* Rasevelger med 96px forhåndsvisning */
     .avatar-picker-container {
       display: flex;
       gap: 12px;
@@ -176,9 +176,9 @@
         
         <label>Velg rase/avatar</label>
         <div class="avatar-picker-container">
-          <!-- Spaniel (spanielAnim-cropped.webm) -->
+          <!-- Spaniel (spanielAnim_new.webm) -->
           <div class="avatar-opt selected" onclick="selectAvatarChoice('spaniel')" id="opt-spaniel">
-            <video src="spanielAnim-cropped.webm" autoplay loop muted playsinline></video>
+            <video src="spanielAnim_new.webm" autoplay loop muted playsinline></video>
             Spaniel
           </div>
 
@@ -285,7 +285,7 @@
 
     // Avatardefinisjoner
     const AVATARS = {
-      spaniel: `<video src="spanielAnim-cropped.webm" autoplay loop muted playsinline></video>`,
+      spaniel: `<video src="spanielAnim_new.webm" autoplay loop muted playsinline></video>`,
       golden: `
         <svg viewBox="0 0 80 80">
           <path class="anim-wag" d="M 28 50 Q 15 45 14 36 Q 20 40 28 47" fill="#d97706" />

@@ -7,7 +7,7 @@
   <title>BitchHeatr</title>
 
   <!-- PWA Manifest som peker på desktop_icon.png for startskjermen -->
-  <link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22BitchHeatr%22%2C%22short_name%22%3A%22BitchHeatr%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%23dc2626%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22desktop_icon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%22%7D%2C%7B%22src%22%3A%22desktop_icon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22maskable%22%7D%5D%7D">
+  <link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22BitchHeatr%22%2C%22short_name%22%3A%22BitchHeatr%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background-color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%23dc2626%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22desktop_icon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%22%7D%2C%7B%22src%22%3A%22desktop_icon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22maskable%22%7D%5D%7D">
 
   <style>
     :root {
@@ -75,17 +75,16 @@
     .del-btn { background: none; color: #ef4444; border: none; padding: 4px 8px; width: auto; font-size: 0.8rem; margin: 0; cursor: pointer; }
 
     /* ========================================================
-       ANIMERTE HUNDE-AVATARER (FRITTSTÅENDE & STORE)
+       FORSEGGJORTE ANIMASJONER OG AVATAR-RIGG
        ======================================================== */
     .dog-avatar-wrapper {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
-    /* Ingen sirkel, ingen ramme, ren gjennomsiktig bakgrunn */
     .avatar-icon-box {
-      width: 88px;
-      height: 88px;
+      width: 95px;
+      height: 95px;
       background: transparent;
       border: none;
       display: flex;
@@ -94,39 +93,81 @@
       flex-shrink: 0;
     }
     .avatar-icon-box svg {
-      width: 88px;
-      height: 88px;
+      width: 95px;
+      height: 95px;
       overflow: visible;
     }
 
-    /* Animasjoner */
+    /* Hale-logring med elastisk overgang */
     @keyframes wagAnimation {
-      0%, 100% { transform: rotate(0deg); }
-      50% { transform: rotate(26deg); }
+      0% { transform: rotate(-5deg); }
+      50% { transform: rotate(28deg); }
+      100% { transform: rotate(-5deg); }
     }
     .anim-wag {
-      transform-origin: 28px 48px;
-      animation: wagAnimation 0.4s ease-in-out infinite alternate;
+      transform-origin: 27px 49px;
+      animation: wagAnimation 0.38s ease-in-out infinite;
     }
 
-    @keyframes breatheAnimation {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-3px); }
+    /* Pusting og heving av brystkasse */
+    @keyframes breatheBody {
+      0%, 100% { transform: translateY(0) scaleY(1); }
+      50% { transform: translateY(-2.8px) scaleY(1.02); }
     }
-    .anim-body {
-      animation: breatheAnimation 1.2s ease-in-out infinite;
+    .anim-body-complex {
+      animation: breatheBody 1.4s ease-in-out infinite;
     }
 
-    @keyframes earWiggle {
+    /* Hode- og snusbevegelse */
+    @keyframes headTilt {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-1.5px) rotate(-1.8deg); }
+    }
+    .anim-head {
+      transform-origin: 46px 42px;
+      animation: headTilt 1.4s ease-in-out infinite;
+    }
+
+    /* Øre som svinger med treghet */
+    @keyframes earSway {
       0%, 100% { transform: rotate(0deg); }
-      50% { transform: rotate(-8deg); }
+      35% { transform: rotate(-10deg); }
+      70% { transform: rotate(4deg); }
     }
-    .anim-ear {
-      transform-origin: 43px 30px;
-      animation: earWiggle 1.3s ease-in-out infinite;
+    .anim-ear-complex {
+      transform-origin: 43px 31px;
+      animation: earSway 1.4s ease-in-out infinite;
     }
 
-    /* Rasevelger med horisontal rulling */
+    /* Blunking */
+    @keyframes blinkAnimation {
+      0%, 94%, 98%, 100% { transform: scaleY(1); }
+      96% { transform: scaleY(0.08); }
+    }
+    .anim-eye {
+      transform-origin: 54px 34px;
+      animation: blinkAnimation 3.5s infinite;
+    }
+
+    /* Trippende ben (forben og bakben i motfase) */
+    @keyframes stepFront {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-2.5px) rotate(4deg); }
+    }
+    @keyframes stepBack {
+      0%, 100% { transform: translateY(-2px) rotate(-3deg); }
+      50% { transform: translateY(0) rotate(0deg); }
+    }
+    .anim-paw-front {
+      transform-origin: 46px 52px;
+      animation: stepFront 1.4s ease-in-out infinite;
+    }
+    .anim-paw-back {
+      transform-origin: 32px 52px;
+      animation: stepBack 1.4s ease-in-out infinite;
+    }
+
+    /* Rasevelger */
     .avatar-picker-container {
       display: flex;
       gap: 8px;
@@ -253,7 +294,7 @@
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <div class="dog-avatar-wrapper">
           <div class="avatar-icon-box" id="currentDogAvatar">
-            <!-- Animasjon settes inn her helt uten sirkel -->
+            <!-- Animasjon settes inn her -->
           </div>
           <div>
             <h2 id="currentDogName" style="margin:0; font-size:1.35rem;"></h2>
@@ -293,61 +334,105 @@
       }, 1800);
     });
 
-    // Frittstående store SVG-avatarer uten sirkler rundt
+    // Avatardefinisjoner
     const AVATARS = {
       spaniel: `
         <svg viewBox="0 0 80 80">
           <defs>
-            <pattern id="roanPattern" width="6" height="6" patternUnits="userSpaceOnUse">
-              <rect width="6" height="6" fill="#f1f5f9"/>
-              <circle cx="1.5" cy="1.5" r="0.9" fill="#1e293b"/>
-              <circle cx="4.5" cy="4.5" r="0.8" fill="#334155"/>
-              <circle cx="1" cy="4" r="0.6" fill="#0f172a"/>
-              <circle cx="4.5" cy="1" r="0.6" fill="#475569"/>
+            <!-- Fint melert mønster for roan-pels -->
+            <pattern id="fineRoan" width="5" height="5" patternUnits="userSpaceOnUse">
+              <rect width="5" height="5" fill="#f8fafc"/>
+              <circle cx="1.2" cy="1.2" r="0.85" fill="#0f172a"/>
+              <circle cx="3.8" cy="3.8" r="0.85" fill="#1e293b"/>
+              <circle cx="3.8" cy="1.2" r="0.6" fill="#334155"/>
+              <circle cx="1.2" cy="3.8" r="0.6" fill="#475569"/>
             </pattern>
           </defs>
 
-          <!-- Logrende hale -->
-          <g class="anim-wag">
-            <path d="M 28 50 Q 12 40 10 26 Q 16 34 28 47" fill="url(#roanPattern)" stroke="#0f172a" stroke-width="0.8"/>
-            <path d="M 12 30 Q 16 35 22 42" stroke="#0f172a" stroke-width="1" fill="none"/>
+          <!-- Bakre ben (tråkker mykt) -->
+          <g class="anim-paw-back">
+            <path d="M 31 52 Q 29 58 28 63 Q 32 64 34 63 Q 34 58 35 52 Z" fill="#0f172a"/>
+            <!-- Fjæring bak på låret -->
+            <path d="M 28 50 Q 25 55 27 60 Q 29 57 30 52 Z" fill="url(#fineRoan)"/>
           </g>
 
-          <g class="anim-body">
-            <!-- Kropp -->
-            <ellipse cx="38" cy="52" rx="15" ry="11" fill="url(#roanPattern)" stroke="#94a3b8" stroke-width="0.8" />
-            <path d="M 26 45 Q 36 41 48 45 Q 42 53 26 51 Z" fill="#0f172a" />
+          <!-- Bakre forben -->
+          <g class="anim-paw-front">
+            <path d="M 42 52 Q 41 58 40 63 Q 44 64 45 63 Q 45 58 46 52 Z" fill="#0f172a"/>
+          </g>
 
-            <!-- Labber -->
-            <ellipse cx="44" cy="62" rx="4" ry="2.2" fill="#0f172a" />
-            <ellipse cx="33" cy="62" rx="4" ry="2.2" fill="#0f172a" />
+          <!-- Logrende fane-hale -->
+          <g class="anim-wag">
+            <!-- Halestamme -->
+            <path d="M 27 49 Q 12 39 10 24 Q 15 32 27 46 Z" fill="url(#fineRoan)" stroke="#0f172a" stroke-width="0.7"/>
+            <!-- Silkeaktige hårstrå på halen -->
+            <path d="M 12 28 Q 16 34 23 40 M 15 35 Q 19 41 26 44" stroke="#0f172a" stroke-width="0.9" fill="none"/>
+          </g>
 
-            <!-- Hode -->
-            <circle cx="50" cy="38" r="12" fill="#0f172a" />
-            <path d="M 52 38 Q 62 38 62 42 Q 58 45 52 44 Z" fill="url(#roanPattern)" stroke="#0f172a" stroke-width="0.8"/>
-            
-            <!-- Snute og munn -->
-            <ellipse cx="62" cy="40" rx="3" ry="2.2" fill="#000000" />
-            <path d="M 56 42 Q 60 45 58 43" stroke="#dc2626" stroke-width="1.2" fill="none"/>
+          <!-- Hovedkropp og bryst -->
+          <g class="anim-body-complex">
+            <!-- Kroppsoval med melert pels -->
+            <ellipse cx="37" cy="51" rx="15" ry="11" fill="url(#fineRoan)" stroke="#cbd5e1" stroke-width="0.8"/>
+            <!-- Sadel/sort ryggparti -->
+            <path d="M 25 45 Q 36 40 48 44 Q 41 52 25 50 Z" fill="#0f172a"/>
+            <!-- Fjæring på bryst/mage -->
+            <path d="M 33 58 Q 38 61 44 58 Q 41 56 36 56 Z" fill="url(#fineRoan)"/>
 
-            <!-- Levende øye -->
-            <circle cx="53" cy="35" r="2.2" fill="#451a03" />
-            <circle cx="53" cy="35" r="1.4" fill="#000000" />
-            <circle cx="53.6" cy="34.4" r="0.7" fill="#ffffff" />
+            <!-- Fremre forben (tråkker i motfase) -->
+            <g class="anim-paw-back">
+              <path d="M 45 51 Q 45 58 44 63 Q 48 64 50 63 Q 49 57 48 51 Z" fill="url(#fineRoan)"/>
+              <path d="M 44 55 Q 42 59 43 62 Q 45 60 46 56 Z" fill="#0f172a"/> <!-- Sort flekk på poten -->
+              <ellipse cx="47" cy="63" rx="3" ry="1.6" fill="#0f172a"/>
+            </g>
 
-            <!-- Vippende øre -->
-            <path class="anim-ear" d="M 43 30 Q 33 42 38 52 Q 46 50 45 32 Z" fill="#0b0f19" stroke="#1e293b" stroke-width="0.8"/>
-            <path class="anim-ear" d="M 37 42 Q 41 46 42 50" stroke="#334155" stroke-width="0.8" fill="none"/>
+            <!-- Fremre bakben -->
+            <g class="anim-paw-front">
+              <path d="M 32 50 Q 33 57 32 63 Q 36 64 38 63 Q 37 57 36 50 Z" fill="url(#fineRoan)"/>
+              <ellipse cx="35" cy="63" rx="3" ry="1.6" fill="#0f172a"/>
+            </g>
+
+            <!-- Hode, hals og ansikt -->
+            <g class="anim-head">
+              <!-- Hals med melert sjattering -->
+              <path d="M 42 44 Q 45 36 49 34 Q 52 42 45 48 Z" fill="url(#fineRoan)"/>
+              <!-- Hodestruktur (sort) -->
+              <circle cx="50" cy="37" r="11.5" fill="#0f172a"/>
+              <!-- Snute med roan-tegning -->
+              <path d="M 51 36 Q 63 36 63 41 Q 59 45 51 43 Z" fill="url(#fineRoan)" stroke="#0f172a" stroke-width="0.7"/>
+              <!-- Sorte værhårprikker og nese -->
+              <circle cx="57" cy="39" r="0.7" fill="#0f172a"/>
+              <circle cx="59" cy="40" r="0.7" fill="#0f172a"/>
+              <ellipse cx="63" cy="39" rx="3.2" ry="2.2" fill="#000000"/>
+              <!-- Åpen munn / leppe med glad tunge -->
+              <path d="M 55 42 Q 60 44 58 43" stroke="#000000" stroke-width="1" fill="none"/>
+              <path d="M 57 43 Q 59 47 61 44" fill="#f43f5e"/>
+
+              <!-- Blunkende øye -->
+              <g class="anim-eye">
+                <circle cx="53" cy="34" r="2.4" fill="#3b1c09"/> <!-- Varm iris -->
+                <circle cx="53" cy="34" r="1.5" fill="#000000"/> <!-- Pupill -->
+                <circle cx="53.8" cy="33.4" r="0.8" fill="#ffffff"/> <!-- Lysglimt -->
+              </g>
+
+              <!-- Karakteristisk, bølget og leddelt sort spanieløre -->
+              <g class="anim-ear-complex">
+                <!-- Ørebunn og fold -->
+                <path d="M 43 29 Q 32 40 37 53 Q 46 51 45 31 Z" fill="#090d16"/>
+                <!-- Bølger og glans i pelsen -->
+                <path d="M 37 38 Q 43 44 41 51" stroke="#334155" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+                <path d="M 34 43 Q 39 47 38 52" stroke="#1e293b" stroke-width="1" stroke-linecap="round" fill="none"/>
+              </g>
+            </g>
           </g>
         </svg>
       `,
       golden: `
         <svg viewBox="0 0 80 80">
           <path class="anim-wag" d="M 28 50 Q 15 45 14 36 Q 20 40 28 47" fill="#d97706" />
-          <g class="anim-body">
+          <g class="anim-body-complex">
             <ellipse cx="38" cy="52" rx="15" ry="11" fill="#f59e0b" />
             <circle cx="50" cy="38" r="12" fill="#f59e0b" />
-            <path class="anim-ear" d="M 43 32 Q 39 45 44 47 Q 48 43 46 32" fill="#d97706" />
+            <path class="anim-ear-complex" d="M 43 32 Q 39 45 44 47 Q 48 43 46 32" fill="#d97706" />
             <circle cx="54" cy="36" r="2.2" fill="#1e293b" />
             <ellipse cx="60" cy="40" rx="3.5" ry="2.5" fill="#0f172a" />
             <ellipse cx="44" cy="62" rx="4" ry="2" fill="#d97706" />
@@ -358,7 +443,7 @@
       shepherd: `
         <svg viewBox="0 0 80 80">
           <path class="anim-wag" d="M 28 50 Q 14 44 12 34 Q 18 39 28 47" fill="#1e293b" />
-          <g class="anim-body">
+          <g class="anim-body-complex">
             <ellipse cx="38" cy="52" rx="15" ry="11" fill="#78350f" />
             <circle cx="50" cy="38" r="12" fill="#92400e" />
             <polygon points="43,26 48,15 51,26" fill="#1e293b" />
@@ -373,7 +458,7 @@
       terrier: `
         <svg viewBox="0 0 80 80">
           <path class="anim-wag" d="M 29 50 Q 22 40 22 32 Q 26 38 30 47" fill="#475569" />
-          <g class="anim-body">
+          <g class="anim-body-complex">
             <ellipse cx="38" cy="52" rx="14" ry="11" fill="#94a3b8" />
             <circle cx="49" cy="38" r="12" fill="#cbd5e1" />
             <polygon points="44,28 47,20 51,28" fill="#475569" />
@@ -388,7 +473,7 @@
       pug: `
         <svg viewBox="0 0 80 80">
           <path class="anim-wag" d="M 27 49 Q 22 42 25 36 Q 30 38 28 45" fill="#292524" />
-          <g class="anim-body">
+          <g class="anim-body-complex">
             <ellipse cx="38" cy="52" rx="15" ry="12" fill="#d6d3d1" />
             <circle cx="50" cy="38" r="13" fill="#e7e5e4" />
             <ellipse cx="56" cy="41" rx="6" ry="5" fill="#292524" />
@@ -504,7 +589,6 @@
       document.getElementById('cycleCard').style.display = 'block';
       document.getElementById('currentDogName').textContent = dog.name;
 
-      // Henter hundens avatar (vises frittstående)
       const avatarSvg = AVATARS[dog.avatar] || AVATARS['spaniel'];
       document.getElementById('currentDogAvatar').innerHTML = avatarSvg;
 

@@ -37,7 +37,7 @@
       justify-content: center;
       align-items: center;
       z-index: 9999;
-      transition: opacity 0.25s ease-out;
+      transition: opacity 0.3s ease-out;
     }
     #splash-screen img {
       width: 140px;
@@ -64,13 +64,12 @@
 </head>
 <body>
 
-  <!-- Splash Screen (forsvinner automatisk etter 600ms) -->
+  <!-- Splash Screen (vises i 1200ms) -->
   <div id="splash-screen">
     <img src="mateIcon.svg" alt="BitchHeatr Splash">
   </div>
 
   <div class="container">
-    <!-- Valg av hund (overskrift er fjernet, starter rett på kortene) -->
     <div class="card" style="margin-top: 8px;">
       <label for="dogSelect">Valgt tispe</label>
       <select id="dogSelect" onchange="onSelectDog()"></select>
@@ -112,15 +111,15 @@
   </div>
 
   <script>
-    // Splash screen timer på 600 ms
+    // Splash screen timer på 1200 ms
     window.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         const splash = document.getElementById('splash-screen');
         if (splash) {
           splash.style.opacity = '0';
-          setTimeout(() => splash.remove(), 250);
+          setTimeout(() => splash.remove(), 300);
         }
-      }, 600);
+      }, 1200);
     });
 
     const defaultData = {

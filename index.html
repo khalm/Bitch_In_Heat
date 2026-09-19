@@ -3,36 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#2563eb">
-  <title>Løpetid</title>
+  <meta name="theme-color" content="#dc2626">
+  <title>Løpetidskontroll</title>
 
-  <!-- PWA Manifest innebygd -->
-  <link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22L%C3%B8petidskontroll%22%2C%22short_name%22%3A%22L%C3%B8petid%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%232563eb%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fcdn-icons-png.flaticon.com%2F512%2F616%2F616408.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
+  <!-- PWA Manifest som kobler direkte til appIcon.png -->
+  <link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22L%C3%B8petidskontroll%22%2C%22short_name%22%3A%22L%C3%B8petid%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23000000%22%2C%22theme_color%22%3A%22%23dc2626%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22appIcon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
 
   <style>
     :root {
       --bg: #f8fafc;
       --card-bg: #ffffff;
-      --primary: #2563eb;
-      --text: #1e293b;
+      --primary: #dc2626;
+      --primary-dark: #b91c1c;
+      --text: #0f172a;
       --muted: #64748b;
       --border: #e2e8f0;
-      --highlight: #fef2f2;
-      --highlight-border: #f87171;
+      --danger-bg: #fef2f2;
+      --danger-border: #f87171;
     }
-    * { box-sizing: border-box; font-family: -apple-system, Roboto, sans-serif; }
+    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background-color: var(--bg); color: var(--text); margin: 0; padding: 16px; }
     .container { max-width: 500px; margin: 0 auto; }
-    h1 { font-size: 1.3rem; margin-bottom: 1rem; }
-    .card { background: var(--card-bg); border-radius: 12px; padding: 16px; border: 1px solid var(--border); margin-bottom: 16px; }
-    label { font-size: 0.85rem; font-weight: 600; color: var(--muted); display: block; margin-bottom: 4px; }
+    
+    .header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .header img { width: 48px; height: 48px; border-radius: 12px; object-fit: contain; background: #000; }
+    .header h1 { font-size: 1.35rem; margin: 0; }
+
+    .card { background: var(--card-bg); border-radius: 12px; padding: 16px; border: 1px solid var(--border); margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    label { font-size: 0.85rem; font-weight: 600; color: var(--muted); display: block; margin-bottom: 6px; }
     input, select, button { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.95rem; margin-bottom: 12px; }
-    button { background: var(--primary); color: white; border: none; font-weight: 600; cursor: pointer; }
+    button { background: var(--primary); color: white; border: none; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    button:active { background: var(--primary-dark); }
     button.secondary { background: #e2e8f0; color: var(--text); }
-    .status-badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; background: #e0f2fe; color: #0369a1; }
-    .box-info { background: var(--highlight); border: 1px solid var(--highlight-border); border-radius: 8px; padding: 12px; margin-top: 10px; }
-    .box-info h3 { margin: 0 0 6px 0; font-size: 1rem; color: #991b1b; }
-    .box-info p { margin: 4px 0; font-size: 0.9rem; }
+    
+    .status-badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; background: #fee2e2; color: #991b1b; }
+    .box-info { background: var(--danger-bg); border: 1px solid var(--danger-border); border-radius: 8px; padding: 14px; margin-top: 10px; }
+    .box-info h3 { margin: 0 0 8px 0; font-size: 1rem; color: #991b1b; display: flex; align-items: center; gap: 6px; }
+    .box-info p { margin: 6px 0; font-size: 0.9rem; }
+    
     ul { list-style: none; padding: 0; margin: 8px 0 0 0; }
     li { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
     .del-btn { background: none; color: #ef4444; border: none; padding: 4px 8px; width: auto; font-size: 0.8rem; margin: 0; cursor: pointer; }
@@ -40,49 +48,55 @@
 </head>
 <body>
   <div class="container">
-    <h1>🐕 Løpetidskontroll</h1>
+    <div class="header">
+      <img src="appIcon.png" alt="Paring forbudt">
+      <h1>Løpetidskontroll</h1>
+    </div>
 
+    <!-- Valg av hund -->
     <div class="card">
-      <label for="dogSelect">Valgt hund</label>
+      <label for="dogSelect">Valgt tispe</label>
       <select id="dogSelect" onchange="onSelectDog()"></select>
-      <button class="secondary" onclick="toggleAddDogForm()">+ Legg til ny hund</button>
+      <button class="secondary" onclick="toggleAddDogForm()">+ Registrer ny hund</button>
 
       <div id="addDogForm" style="display:none; margin-top:12px; border-top:1px solid var(--border); padding-top:12px;">
-        <label for="newDogName">Navn</label>
+        <label for="newDogName">Hundens navn</label>
         <input type="text" id="newDogName" placeholder="F.eks. Ellie">
-        <label for="newDogInterval">Forventet intervall (dager)</label>
+        <label for="newDogInterval">Forventet intervall mellom løpetider (dager)</label>
         <input type="number" id="newDogInterval" value="180">
         <button onclick="saveNewDog()">Lagre hund</button>
       </div>
     </div>
 
+    <!-- Prognosekort -->
     <div id="predictionCard" class="card" style="display:none;">
       <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h2 id="currentDogName" style="margin:0; font-size:1.1rem;"></h2>
+        <h2 id="currentDogName" style="margin:0; font-size:1.15rem;"></h2>
         <span class="status-badge" id="cycleIntervalBadge"></span>
       </div>
 
       <div class="box-info">
-        <h3>Fruktbarhet & Neste løpetid</h3>
-        <p><strong>Neste estimerte start:</strong> <span id="nextHeatDate">-</span></p>
-        <p><strong>Fruktbart vindu (dag 9–16):</strong> <span id="fertileWindowDate">-</span></p>
-        <p><strong>Topp / eggløsning (dag 11–13):</strong> <span id="ovulationPeakDate">-</span></p>
+        <h3>🚫 Risiko / Paring forbudt</h3>
+        <p><strong>Neste forventede start:</strong> <span id="nextHeatDate">-</span></p>
+        <p><strong>⚠️ Fruktbart vindu (dag 9–16):</strong> <br><span id="fertileWindowDate">-</span></p>
+        <p><strong>🚨 Høyeste risiko / eggløsning (dag 11–13):</strong> <br><span id="ovulationPeakDate">-</span></p>
       </div>
     </div>
 
+    <!-- Registrering -->
     <div id="cycleCard" class="card" style="display:none;">
-      <label for="cycleStartDate">Første dag med blødning</label>
+      <label for="cycleStartDate">Første dag med synlig blødning</label>
       <input type="date" id="cycleStartDate">
       <button onclick="addCycle()">Loggfør dato</button>
 
-      <h4 style="margin: 12px 0 6px 0; color: var(--muted); font-size:0.85rem;">Historikk</h4>
+      <h4 style="margin: 14px 0 6px 0; color: var(--muted); font-size:0.85rem;">Registrert historikk</h4>
       <ul id="cycleList"></ul>
     </div>
   </div>
 
   <script>
     const defaultData = {
-      dogs: [{ id: 'dog-1', name: 'Min hund', defaultInterval: 180, cycles: [] }]
+      dogs: [{ id: 'dog-1', name: 'Min tispe', defaultInterval: 180, cycles: [] }]
     };
 
     let appData = JSON.parse(localStorage.getItem('dog_cycles_data')) || defaultData;
@@ -178,7 +192,7 @@
         : dog.defaultInterval;
 
       document.getElementById('cycleIntervalBadge').textContent = 
-        intervals.length > 0 ? `${avgInterval} dagers snitt` : `Standard: ${avgInterval} d`;
+        intervals.length > 0 ? `${avgInterval} dagers snitt` : `Standard: ${avgInterval} dager`;
 
       const lastCycleDate = dog.cycles[dog.cycles.length - 1];
       const today = new Date().toISOString().split('T')[0];
@@ -191,14 +205,14 @@
         document.getElementById('nextHeatDate').textContent = nextHeat;
 
         const refDate = isOngoing ? lastCycleDate : nextHeat;
-        const statusText = isOngoing ? ' (Pågående)' : ' (Neste)';
+        const statusText = isOngoing ? ' (Pågående løpetid!)' : ' (Ved neste løpetid)';
 
         document.getElementById('fertileWindowDate').textContent = 
           `${addDays(refDate, 9)} til ${addDays(refDate, 16)}${statusText}`;
         document.getElementById('ovulationPeakDate').textContent = 
           `${addDays(refDate, 11)} til ${addDays(refDate, 13)}${statusText}`;
       } else {
-        document.getElementById('nextHeatDate').textContent = 'Legg inn første dato';
+        document.getElementById('nextHeatDate').textContent = 'Ingen dato registrert';
         document.getElementById('fertileWindowDate').textContent = '-';
         document.getElementById('ovulationPeakDate').textContent = '-';
       }

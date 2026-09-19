@@ -75,17 +75,17 @@
     .del-btn { background: none; color: #ef4444; border: none; padding: 4px 8px; width: auto; font-size: 0.8rem; margin: 0; cursor: pointer; }
 
     /* ========================================================
-       ANIMERTE HUNDE-AVATARER & CSS LOOP-ANIMASJONER
+       ANIMERTE HUNDE-AVATARER (FORSTØRRET)
        ======================================================== */
     .dog-avatar-wrapper {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
     .avatar-icon-box {
-      width: 58px;
-      height: 58px;
-      background: #f1f5f9;
+      width: 76px;
+      height: 76px;
+      background: #f8fafc;
       border-radius: 50%;
       border: 2px solid var(--border);
       display: flex;
@@ -93,53 +93,54 @@
       justify-content: center;
       flex-shrink: 0;
       overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.04);
     }
     .avatar-icon-box svg {
-      width: 44px;
-      height: 44px;
+      width: 62px;
+      height: 62px;
     }
 
-    /* Hale-logring */
+    /* Animasjoner */
     @keyframes wagAnimation {
       0%, 100% { transform: rotate(0deg); }
-      50% { transform: rotate(24deg); }
+      50% { transform: rotate(26deg); }
     }
     .anim-wag {
-      transform-origin: 30px 48px;
-      animation: wagAnimation 0.45s ease-in-out infinite alternate;
+      transform-origin: 29px 48px;
+      animation: wagAnimation 0.4s ease-in-out infinite alternate;
     }
 
-    /* Puste- / trippehop */
     @keyframes breatheAnimation {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-2.5px); }
+      50% { transform: translateY(-3px); }
     }
     .anim-body {
       animation: breatheAnimation 1.2s ease-in-out infinite;
     }
 
-    /* Øre-vipp */
     @keyframes earWiggle {
       0%, 100% { transform: rotate(0deg); }
-      50% { transform: rotate(-8deg); }
+      50% { transform: rotate(-9deg); }
     }
     .anim-ear {
-      transform-origin: 52px 25px;
-      animation: earWiggle 1.4s ease-in-out infinite;
+      transform-origin: 43px 30px;
+      animation: earWiggle 1.3s ease-in-out infinite;
     }
 
-    /* Valg av rase ved opprettelse */
-    .avatar-picker {
+    /* Rasevelger med horisontal rulling */
+    .avatar-picker-container {
       display: flex;
-      gap: 10px;
-      margin-bottom: 14px;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 2px 10px 2px;
+      margin-bottom: 12px;
     }
     .avatar-opt {
-      flex: 1;
+      flex: 0 0 85px;
       text-align: center;
       padding: 8px 4px;
       border: 2px solid var(--border);
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       font-size: 0.75rem;
       background: var(--bg);
@@ -151,8 +152,8 @@
       font-weight: bold;
     }
     .avatar-opt svg {
-      width: 36px;
-      height: 36px;
+      width: 44px;
+      height: 44px;
       display: block;
       margin: 0 auto 4px auto;
     }
@@ -160,7 +161,7 @@
 </head>
 <body>
 
-  <!-- Splash Screen (800ms fade-in -> 1000ms visning -> 800ms fade-out) -->
+  <!-- Splash Screen -->
   <div id="splash-screen">
     <img src="mateIcon.svg" alt="BitchHeatr Logo">
     <h1>BitchHeatr</h1>
@@ -178,19 +179,67 @@
         <label for="newDogName">Hundens navn</label>
         <input type="text" id="newDogName" placeholder="F.eks. Ellie">
         
-        <label>Velg animert avatar</label>
-        <div class="avatar-picker">
-          <div class="avatar-opt selected" onclick="selectAvatarChoice('golden')" id="opt-golden">
-            <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="30" fill="#f59e0b"/><polygon points="25,25 35,45 20,40" fill="#d97706"/><circle cx="50" cy="38" r="4" fill="#1e293b"/><ellipse cx="58" cy="44" rx="5" ry="3" fill="#0f172a"/></svg>
+        <label>Velg rase/avatar</label>
+        <div class="avatar-picker-container">
+          <!-- Svart og hvit Cocker Spaniel -->
+          <div class="avatar-opt selected" onclick="selectAvatarChoice('spaniel')" id="opt-spaniel">
+            <svg viewBox="0 0 80 80">
+              <ellipse cx="40" cy="40" rx="26" ry="24" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+              <path d="M 24 24 Q 38 20 44 32 Q 32 38 24 35 Z" fill="#0f172a"/>
+              <path d="M 28 26 Q 22 45 28 50 Q 32 46 32 32 Z" fill="#0f172a"/>
+              <circle cx="50" cy="38" r="3.5" fill="#0f172a"/>
+              <ellipse cx="58" cy="42" rx="4.5" ry="3.5" fill="#0f172a"/>
+            </svg>
+            Spaniel
+          </div>
+
+          <!-- Retriever -->
+          <div class="avatar-opt" onclick="selectAvatarChoice('golden')" id="opt-golden">
+            <svg viewBox="0 0 80 80">
+              <ellipse cx="40" cy="40" rx="26" ry="24" fill="#f59e0b"/>
+              <path d="M 28 28 Q 22 44 28 48 Q 33 44 32 32 Z" fill="#d97706"/>
+              <circle cx="50" cy="38" r="3.5" fill="#1e293b"/>
+              <ellipse cx="58" cy="42" rx="4.5" ry="3.5" fill="#0f172a"/>
+            </svg>
             Retriever
           </div>
+
+          <!-- Schäfer -->
           <div class="avatar-opt" onclick="selectAvatarChoice('shepherd')" id="opt-shepherd">
-            <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="30" fill="#78350f"/><polygon points="28,15 36,35 24,35" fill="#1e293b"/><polygon points="46,15 54,35 42,35" fill="#1e293b"/><circle cx="48" cy="42" r="4" fill="#ffffff"/><ellipse cx="56" cy="46" rx="5" ry="3" fill="#0f172a"/></svg>
+            <svg viewBox="0 0 80 80">
+              <ellipse cx="40" cy="40" rx="26" ry="24" fill="#78350f"/>
+              <polygon points="26,16 34,34 22,34" fill="#1e293b"/>
+              <polygon points="44,16 52,34 40,34" fill="#1e293b"/>
+              <circle cx="48" cy="40" r="3.5" fill="#ffffff"/>
+              <ellipse cx="56" cy="44" rx="4.5" ry="3.5" fill="#0f172a"/>
+            </svg>
             Schäfer
           </div>
+
+          <!-- Terrier -->
           <div class="avatar-opt" onclick="selectAvatarChoice('terrier')" id="opt-terrier">
-            <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="30" fill="#94a3b8"/><polygon points="30,22 38,36 28,34" fill="#475569"/><circle cx="48" cy="38" r="4" fill="#0f172a"/><ellipse cx="56" cy="42" rx="4" ry="3" fill="#0f172a"/><path d="M 45 48 Q 50 54 55 48" stroke="#dc2626" stroke-width="2" fill="none"/></svg>
+            <svg viewBox="0 0 80 80">
+              <ellipse cx="40" cy="40" rx="26" ry="24" fill="#94a3b8"/>
+              <polygon points="26,22 34,35 24,34" fill="#475569"/>
+              <circle cx="48" cy="38" r="3.5" fill="#0f172a"/>
+              <ellipse cx="56" cy="42" rx="4" ry="3" fill="#0f172a"/>
+              <path d="M 46 48 Q 50 54 54 48" stroke="#dc2626" stroke-width="2" fill="none"/>
+            </svg>
             Terrier
+          </div>
+
+          <!-- Mops / Bulldog -->
+          <div class="avatar-opt" onclick="selectAvatarChoice('pug')" id="opt-pug">
+            <svg viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="26" fill="#d6d3d1"/>
+              <polygon points="20,24 28,34 18,34" fill="#1c1917"/>
+              <polygon points="60,24 52,34 62,34" fill="#1c1917"/>
+              <ellipse cx="40" cy="46" rx="14" ry="10" fill="#292524"/>
+              <circle cx="33" cy="38" r="4" fill="#0f172a"/>
+              <circle cx="47" cy="38" r="4" fill="#0f172a"/>
+              <ellipse cx="40" cy="44" rx="3.5" ry="2.5" fill="#000000"/>
+            </svg>
+            Mops
           </div>
         </div>
 
@@ -200,15 +249,15 @@
       </div>
     </div>
 
-    <!-- Prognosekort med animert hundelogo -->
+    <!-- Prognosekort med stor animert hund -->
     <div id="predictionCard" class="card" style="display:none;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <div class="dog-avatar-wrapper">
           <div class="avatar-icon-box" id="currentDogAvatar">
-            <!-- Animasjon settes inn her dynamisk -->
+            <!-- Animasjon settes inn her -->
           </div>
           <div>
-            <h2 id="currentDogName" style="margin:0; font-size:1.25rem;"></h2>
+            <h2 id="currentDogName" style="margin:0; font-size:1.3rem;"></h2>
             <span class="status-badge" id="cycleIntervalBadge" style="margin-top:4px;"></span>
           </div>
         </div>
@@ -245,16 +294,39 @@
       }, 1800);
     });
 
-    // Avatardefinisjoner med CSS-animerte deler (hale, kropp, øre)
+    // Animerte raser i SVG med dynamiske bevegelser
     const AVATARS = {
+      spaniel: `
+        <svg viewBox="0 0 80 80">
+          <!-- Logrende hale (svart med hvit tupp) -->
+          <path class="anim-wag" d="M 28 50 Q 14 42 12 30 Q 18 36 28 47" fill="#0f172a" />
+          <circle cx="13" cy="32" r="3" fill="#ffffff" />
+          <g class="anim-body">
+            <!-- Kropp med hvit pels og svart flekk bak -->
+            <ellipse cx="38" cy="52" rx="15" ry="11" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2" />
+            <path d="M 26 48 Q 30 43 36 47 Q 34 56 26 55 Z" fill="#0f172a" />
+            <!-- Hode med spaniel-tegning -->
+            <circle cx="50" cy="38" r="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+            <path d="M 42 30 Q 50 26 56 34 Q 48 38 42 36 Z" fill="#0f172a" />
+            <!-- Karakteristisk langt, bølget spanieløre som vipper -->
+            <path class="anim-ear" d="M 43 30 Q 36 44 42 50 Q 47 48 45 32 Z" fill="#0f172a" />
+            <!-- Øye og snute -->
+            <circle cx="54" cy="36" r="2.2" fill="#0f172a" />
+            <ellipse cx="61" cy="40" rx="3.5" ry="2.5" fill="#0f172a" />
+            <!-- Labber -->
+            <ellipse cx="44" cy="62" rx="4" ry="2" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
+            <ellipse cx="33" cy="62" rx="4" ry="2" fill="#0f172a" />
+          </g>
+        </svg>
+      `,
       golden: `
         <svg viewBox="0 0 80 80">
           <path class="anim-wag" d="M 28 50 Q 15 45 14 36 Q 20 40 28 47" fill="#d97706" />
           <g class="anim-body">
             <ellipse cx="38" cy="52" rx="15" ry="11" fill="#f59e0b" />
             <circle cx="50" cy="38" r="12" fill="#f59e0b" />
-            <path class="anim-ear" d="M 43 32 Q 40 44 45 46 Q 48 42 46 32" fill="#d97706" />
-            <circle cx="54" cy="36" r="2" fill="#1e293b" />
+            <path class="anim-ear" d="M 43 32 Q 39 45 44 47 Q 48 43 46 32" fill="#d97706" />
+            <circle cx="54" cy="36" r="2.2" fill="#1e293b" />
             <ellipse cx="60" cy="40" rx="3.5" ry="2.5" fill="#0f172a" />
             <ellipse cx="44" cy="62" rx="4" ry="2" fill="#d97706" />
             <ellipse cx="33" cy="62" rx="4" ry="2" fill="#d97706" />
@@ -269,7 +341,7 @@
             <circle cx="50" cy="38" r="12" fill="#92400e" />
             <polygon points="43,26 48,15 51,26" fill="#1e293b" />
             <polygon points="51,26 56,15 58,26" fill="#1e293b" />
-            <circle cx="54" cy="36" r="2" fill="#ffffff" />
+            <circle cx="54" cy="36" r="2.2" fill="#ffffff" />
             <ellipse cx="60" cy="40" rx="3.5" ry="2.5" fill="#0f172a" />
             <ellipse cx="45" cy="62" rx="4" ry="2" fill="#1e293b" />
             <ellipse cx="33" cy="62" rx="4" ry="2" fill="#1e293b" />
@@ -290,19 +362,38 @@
             <ellipse cx="33" cy="62" rx="4" ry="2" fill="#64748b" />
           </g>
         </svg>
+      `,
+      pug: `
+        <svg viewBox="0 0 80 80">
+          <!-- Krøllete hale -->
+          <path class="anim-wag" d="M 27 49 Q 22 42 25 36 Q 30 38 28 45" fill="#292524" />
+          <g class="anim-body">
+            <ellipse cx="38" cy="52" rx="15" ry="12" fill="#d6d3d1" />
+            <circle cx="50" cy="38" r="13" fill="#e7e5e4" />
+            <!-- Mørk maske og snute -->
+            <ellipse cx="56" cy="41" rx="6" ry="5" fill="#292524" />
+            <ellipse cx="58" cy="40" rx="3" ry="2" fill="#0c0a09" />
+            <!-- Hengeører -->
+            <polygon points="44,28 41,36 47,34" fill="#292524" />
+            <circle cx="52" cy="36" r="2.5" fill="#0f172a" />
+            <ellipse cx="45" cy="63" rx="4" ry="2.5" fill="#a8a29e" />
+            <ellipse cx="33" cy="63" rx="4" ry="2.5" fill="#a8a29e" />
+          </g>
+        </svg>
       `
     };
 
-    let selectedAvatar = 'golden';
+    let selectedAvatar = 'spaniel';
 
     function selectAvatarChoice(key) {
       selectedAvatar = key;
       document.querySelectorAll('.avatar-opt').forEach(el => el.classList.remove('selected'));
-      document.getElementById('opt-' + key).classList.add('selected');
+      const opt = document.getElementById('opt-' + key);
+      if (opt) opt.classList.add('selected');
     }
 
     const defaultData = {
-      dogs: [{ id: 'dog-1', name: 'Min tispe', avatar: 'golden', defaultInterval: 180, cycles: [] }]
+      dogs: [{ id: 'dog-1', name: 'Min tispe', avatar: 'spaniel', defaultInterval: 180, cycles: [] }]
     };
 
     let appData = JSON.parse(localStorage.getItem('dog_cycles_data')) || defaultData;
@@ -394,8 +485,8 @@
       document.getElementById('cycleCard').style.display = 'block';
       document.getElementById('currentDogName').textContent = dog.name;
 
-      // Vis hundens animerte avatar
-      const avatarSvg = AVATARS[dog.avatar] || AVATARS['golden'];
+      // Hent riktig rase-avatar (standard er spaniel)
+      const avatarSvg = AVATARS[dog.avatar] || AVATARS['spaniel'];
       document.getElementById('currentDogAvatar').innerHTML = avatarSvg;
 
       const intervals = [];

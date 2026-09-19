@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#dc2626">
   <title>Løpetidskontroll</title>
 
-  <!-- PWA Manifest som kobler direkte til appIcon.png -->
-  <link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22L%C3%B8petidskontroll%22%2C%22short_name%22%3A%22L%C3%B8petid%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23000000%22%2C%22theme_color%22%3A%22%23dc2626%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22appIcon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
+  <!-- PWA Manifest som peker på appIcon.png -->
+  <link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22L%C3%B8petidskontroll%22%2C%22short_name%22%3A%22L%C3%B8petid%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%23dc2626%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22appIcon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
 
   <style>
     :root {
@@ -18,15 +18,15 @@
       --text: #0f172a;
       --muted: #64748b;
       --border: #e2e8f0;
-      --danger-bg: #fef2f2;
-      --danger-border: #f87171;
+      --box-bg: #fef2f2;
+      --box-border: #f87171;
     }
     * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background-color: var(--bg); color: var(--text); margin: 0; padding: 16px; }
     .container { max-width: 500px; margin: 0 auto; }
     
     .header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-    .header img { width: 48px; height: 48px; border-radius: 12px; object-fit: contain; background: #000; }
+    .header img { width: 48px; height: 48px; object-fit: contain; background: transparent; }
     .header h1 { font-size: 1.35rem; margin: 0; }
 
     .card { background: var(--card-bg); border-radius: 12px; padding: 16px; border: 1px solid var(--border); margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
@@ -37,8 +37,8 @@
     button.secondary { background: #e2e8f0; color: var(--text); }
     
     .status-badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; background: #fee2e2; color: #991b1b; }
-    .box-info { background: var(--danger-bg); border: 1px solid var(--danger-border); border-radius: 8px; padding: 14px; margin-top: 10px; }
-    .box-info h3 { margin: 0 0 8px 0; font-size: 1rem; color: #991b1b; display: flex; align-items: center; gap: 6px; }
+    .box-info { background: var(--box-bg); border: 1px solid var(--box-border); border-radius: 8px; padding: 14px; margin-top: 10px; }
+    .box-info h3 { margin: 0 0 8px 0; font-size: 1rem; color: #991b1b; }
     .box-info p { margin: 6px 0; font-size: 0.9rem; }
     
     ul { list-style: none; padding: 0; margin: 8px 0 0 0; }
@@ -49,7 +49,7 @@
 <body>
   <div class="container">
     <div class="header">
-      <img src="appIcon.png" alt="Paring forbudt">
+      <img src="appIcon.png" alt="Ikon">
       <h1>Løpetidskontroll</h1>
     </div>
 
@@ -76,10 +76,10 @@
       </div>
 
       <div class="box-info">
-        <h3>🚫 Risiko / Paring forbudt</h3>
+        <h3>Syklus og fruktbarhet</h3>
         <p><strong>Neste forventede start:</strong> <span id="nextHeatDate">-</span></p>
-        <p><strong>⚠️ Fruktbart vindu (dag 9–16):</strong> <br><span id="fertileWindowDate">-</span></p>
-        <p><strong>🚨 Høyeste risiko / eggløsning (dag 11–13):</strong> <br><span id="ovulationPeakDate">-</span></p>
+        <p><strong>Fruktbart vindu (dag 9–16):</strong> <br><span id="fertileWindowDate">-</span></p>
+        <p><strong>Eggløsning / høyest risiko (dag 11–13):</strong> <br><span id="ovulationPeakDate">-</span></p>
       </div>
     </div>
 

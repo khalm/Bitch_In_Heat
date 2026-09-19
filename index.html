@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#dc2626">
-  <title>Bitch in Heat</title>
+  <title>BitchHeatr</title>
 
   <!-- PWA Manifest som peker på desktop_icon.png for startskjermen -->
-  <link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22Bitch%20in%20Heat%22%2C%22short_name%22%3A%22Bitch%20in%20Heat%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%23dc2626%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22desktop_icon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%22%7D%2C%7B%22src%22%3A%22desktop_icon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22maskable%22%7D%5D%7D">
+  <link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22BitchHeatr%22%2C%22short_name%22%3A%22BitchHeatr%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%23dc2626%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22desktop_icon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%22%7D%2C%7B%22src%22%3A%22desktop_icon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22maskable%22%7D%5D%7D">
 
   <style>
     :root {
@@ -25,9 +25,26 @@
     body { background-color: var(--bg); color: var(--text); margin: 0; padding: 16px; }
     .container { max-width: 500px; margin: 0 auto; }
     
-    .header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
-    .header img { width: 80px; height: 80px; object-fit: contain; background: transparent; flex-shrink: 0; }
-    .header h1 { font-size: 1.5rem; margin: 0; }
+    /* Sentrert toppseksjon */
+    .header { 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      gap: 16px; 
+      margin-bottom: 24px; 
+      text-align: center;
+    }
+    .header img { 
+      width: 75px; 
+      height: 75px; 
+      object-fit: contain; 
+      background: transparent; 
+      flex-shrink: 0; 
+    }
+    .header h1 { 
+      font-size: 1.6rem; 
+      margin: 0; 
+    }
 
     .card { background: var(--card-bg); border-radius: 12px; padding: 16px; border: 1px solid var(--border); margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
     label { font-size: 0.85rem; font-weight: 600; color: var(--muted); display: block; margin-bottom: 6px; }
@@ -50,7 +67,7 @@
   <div class="container">
     <div class="header">
       <img src="mateIcon.svg" alt="Ikon">
-      <h1>Bitch in Heat</h1>
+      <h1>BitchHeatr</h1>
     </div>
 
     <!-- Valg av hund -->

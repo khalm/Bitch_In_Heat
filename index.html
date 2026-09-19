@@ -42,17 +42,13 @@
       transition: opacity 0.8s ease-in-out;
       user-select: none;
     }
-    #splash-screen.visible {
-      opacity: 1;
-    }
-    /* Ikonet fyller 3/4 av skjermstørrelsen */
+    #splash-screen.visible { opacity: 1; }
     #splash-screen img {
       width: 75vmin;
       max-width: 75vw;
       height: auto;
       object-fit: contain;
     }
-    /* App-navnet under ikonet */
     #splash-screen h1 {
       margin-top: 20px;
       font-size: 2rem;
@@ -77,6 +73,89 @@
     ul { list-style: none; padding: 0; margin: 8px 0 0 0; }
     li { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
     .del-btn { background: none; color: #ef4444; border: none; padding: 4px 8px; width: auto; font-size: 0.8rem; margin: 0; cursor: pointer; }
+
+    /* ========================================================
+       ANIMERTE HUNDE-AVATARER & CSS LOOP-ANIMASJONER
+       ======================================================== */
+    .dog-avatar-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .avatar-icon-box {
+      width: 58px;
+      height: 58px;
+      background: #f1f5f9;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .avatar-icon-box svg {
+      width: 44px;
+      height: 44px;
+    }
+
+    /* Hale-logring */
+    @keyframes wagAnimation {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(24deg); }
+    }
+    .anim-wag {
+      transform-origin: 30px 48px;
+      animation: wagAnimation 0.45s ease-in-out infinite alternate;
+    }
+
+    /* Puste- / trippehop */
+    @keyframes breatheAnimation {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2.5px); }
+    }
+    .anim-body {
+      animation: breatheAnimation 1.2s ease-in-out infinite;
+    }
+
+    /* Øre-vipp */
+    @keyframes earWiggle {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-8deg); }
+    }
+    .anim-ear {
+      transform-origin: 52px 25px;
+      animation: earWiggle 1.4s ease-in-out infinite;
+    }
+
+    /* Valg av rase ved opprettelse */
+    .avatar-picker {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .avatar-opt {
+      flex: 1;
+      text-align: center;
+      padding: 8px 4px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      background: var(--bg);
+      transition: all 0.2s;
+    }
+    .avatar-opt.selected {
+      border-color: var(--primary);
+      background: #fee2e2;
+      font-weight: bold;
+    }
+    .avatar-opt svg {
+      width: 36px;
+      height: 36px;
+      display: block;
+      margin: 0 auto 4px auto;
+    }
   </style>
 </head>
 <body>
@@ -88,25 +167,51 @@
   </div>
 
   <div class="container">
+    <!-- Valg av hund -->
     <div class="card" style="margin-top: 8px;">
       <label for="dogSelect">Valgt tispe</label>
       <select id="dogSelect" onchange="onSelectDog()"></select>
       <button class="secondary" onclick="toggleAddDogForm()">+ Registrer ny hund</button>
 
+      <!-- Registrer ny hund -->
       <div id="addDogForm" style="display:none; margin-top:12px; border-top:1px solid var(--border); padding-top:12px;">
         <label for="newDogName">Hundens navn</label>
         <input type="text" id="newDogName" placeholder="F.eks. Ellie">
+        
+        <label>Velg animert avatar</label>
+        <div class="avatar-picker">
+          <div class="avatar-opt selected" onclick="selectAvatarChoice('golden')" id="opt-golden">
+            <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="30" fill="#f59e0b"/><polygon points="25,25 35,45 20,40" fill="#d97706"/><circle cx="50" cy="38" r="4" fill="#1e293b"/><ellipse cx="58" cy="44" rx="5" ry="3" fill="#0f172a"/></svg>
+            Retriever
+          </div>
+          <div class="avatar-opt" onclick="selectAvatarChoice('shepherd')" id="opt-shepherd">
+            <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="30" fill="#78350f"/><polygon points="28,15 36,35 24,35" fill="#1e293b"/><polygon points="46,15 54,35 42,35" fill="#1e293b"/><circle cx="48" cy="42" r="4" fill="#ffffff"/><ellipse cx="56" cy="46" rx="5" ry="3" fill="#0f172a"/></svg>
+            Schäfer
+          </div>
+          <div class="avatar-opt" onclick="selectAvatarChoice('terrier')" id="opt-terrier">
+            <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="30" fill="#94a3b8"/><polygon points="30,22 38,36 28,34" fill="#475569"/><circle cx="48" cy="38" r="4" fill="#0f172a"/><ellipse cx="56" cy="42" rx="4" ry="3" fill="#0f172a"/><path d="M 45 48 Q 50 54 55 48" stroke="#dc2626" stroke-width="2" fill="none"/></svg>
+            Terrier
+          </div>
+        </div>
+
         <label for="newDogInterval">Forventet intervall mellom løpetider (dager)</label>
         <input type="number" id="newDogInterval" value="180">
         <button onclick="saveNewDog()">Lagre hund</button>
       </div>
     </div>
 
-    <!-- Prognosekort -->
+    <!-- Prognosekort med animert hundelogo -->
     <div id="predictionCard" class="card" style="display:none;">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h2 id="currentDogName" style="margin:0; font-size:1.15rem;"></h2>
-        <span class="status-badge" id="cycleIntervalBadge"></span>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <div class="dog-avatar-wrapper">
+          <div class="avatar-icon-box" id="currentDogAvatar">
+            <!-- Animasjon settes inn her dynamisk -->
+          </div>
+          <div>
+            <h2 id="currentDogName" style="margin:0; font-size:1.25rem;"></h2>
+            <span class="status-badge" id="cycleIntervalBadge" style="margin-top:4px;"></span>
+          </div>
+        </div>
       </div>
 
       <div class="box-info">
@@ -129,29 +234,75 @@
   </div>
 
   <script>
-    // Splash-tidslinje: 800ms fade-in -> 1000ms på skjermen -> 800ms fade-out
+    // Splash-tidslinje
     window.addEventListener('DOMContentLoaded', () => {
       const splash = document.getElementById('splash-screen');
       if (!splash) return;
-
-      // Start fade-in like etter innlasting
-      requestAnimationFrame(() => {
-        splash.classList.add('visible');
-      });
-
-      // 800ms fade-in + 1000ms synlig = 1800ms før fade-out starter
+      requestAnimationFrame(() => splash.classList.add('visible'));
       setTimeout(() => {
         splash.classList.remove('visible');
-
-        // Fjern elementet fra DOM når fade-out (800ms) er fullført
-        setTimeout(() => {
-          splash.remove();
-        }, 800);
+        setTimeout(() => splash.remove(), 800);
       }, 1800);
     });
 
+    // Avatardefinisjoner med CSS-animerte deler (hale, kropp, øre)
+    const AVATARS = {
+      golden: `
+        <svg viewBox="0 0 80 80">
+          <path class="anim-wag" d="M 28 50 Q 15 45 14 36 Q 20 40 28 47" fill="#d97706" />
+          <g class="anim-body">
+            <ellipse cx="38" cy="52" rx="15" ry="11" fill="#f59e0b" />
+            <circle cx="50" cy="38" r="12" fill="#f59e0b" />
+            <path class="anim-ear" d="M 43 32 Q 40 44 45 46 Q 48 42 46 32" fill="#d97706" />
+            <circle cx="54" cy="36" r="2" fill="#1e293b" />
+            <ellipse cx="60" cy="40" rx="3.5" ry="2.5" fill="#0f172a" />
+            <ellipse cx="44" cy="62" rx="4" ry="2" fill="#d97706" />
+            <ellipse cx="33" cy="62" rx="4" ry="2" fill="#d97706" />
+          </g>
+        </svg>
+      `,
+      shepherd: `
+        <svg viewBox="0 0 80 80">
+          <path class="anim-wag" d="M 28 50 Q 14 44 12 34 Q 18 39 28 47" fill="#1e293b" />
+          <g class="anim-body">
+            <ellipse cx="38" cy="52" rx="15" ry="11" fill="#78350f" />
+            <circle cx="50" cy="38" r="12" fill="#92400e" />
+            <polygon points="43,26 48,15 51,26" fill="#1e293b" />
+            <polygon points="51,26 56,15 58,26" fill="#1e293b" />
+            <circle cx="54" cy="36" r="2" fill="#ffffff" />
+            <ellipse cx="60" cy="40" rx="3.5" ry="2.5" fill="#0f172a" />
+            <ellipse cx="45" cy="62" rx="4" ry="2" fill="#1e293b" />
+            <ellipse cx="33" cy="62" rx="4" ry="2" fill="#1e293b" />
+          </g>
+        </svg>
+      `,
+      terrier: `
+        <svg viewBox="0 0 80 80">
+          <path class="anim-wag" d="M 29 50 Q 22 40 22 32 Q 26 38 30 47" fill="#475569" />
+          <g class="anim-body">
+            <ellipse cx="38" cy="52" rx="14" ry="11" fill="#94a3b8" />
+            <circle cx="49" cy="38" r="12" fill="#cbd5e1" />
+            <polygon points="44,28 47,20 51,28" fill="#475569" />
+            <circle cx="53" cy="36" r="2.2" fill="#0f172a" />
+            <ellipse cx="58" cy="39" rx="3.5" ry="2.5" fill="#0f172a" />
+            <path d="M 53 44 Q 57 48 60 44" stroke="#dc2626" stroke-width="1.8" fill="none" />
+            <ellipse cx="44" cy="62" rx="4" ry="2" fill="#64748b" />
+            <ellipse cx="33" cy="62" rx="4" ry="2" fill="#64748b" />
+          </g>
+        </svg>
+      `
+    };
+
+    let selectedAvatar = 'golden';
+
+    function selectAvatarChoice(key) {
+      selectedAvatar = key;
+      document.querySelectorAll('.avatar-opt').forEach(el => el.classList.remove('selected'));
+      document.getElementById('opt-' + key).classList.add('selected');
+    }
+
     const defaultData = {
-      dogs: [{ id: 'dog-1', name: 'Min tispe', defaultInterval: 180, cycles: [] }]
+      dogs: [{ id: 'dog-1', name: 'Min tispe', avatar: 'golden', defaultInterval: 180, cycles: [] }]
     };
 
     let appData = JSON.parse(localStorage.getItem('dog_cycles_data')) || defaultData;
@@ -184,7 +335,14 @@
       const interval = parseInt(document.getElementById('newDogInterval').value) || 180;
       if (!name) return;
 
-      const newDog = { id: 'dog-' + Date.now(), name, defaultInterval: interval, cycles: [] };
+      const newDog = {
+        id: 'dog-' + Date.now(),
+        name,
+        avatar: selectedAvatar,
+        defaultInterval: interval,
+        cycles: []
+      };
+
       appData.dogs.push(newDog);
       currentDogId = newDog.id;
       document.getElementById('newDogName').value = '';
@@ -235,6 +393,10 @@
       document.getElementById('predictionCard').style.display = 'block';
       document.getElementById('cycleCard').style.display = 'block';
       document.getElementById('currentDogName').textContent = dog.name;
+
+      // Vis hundens animerte avatar
+      const avatarSvg = AVATARS[dog.avatar] || AVATARS['golden'];
+      document.getElementById('currentDogAvatar').innerHTML = avatarSvg;
 
       const intervals = [];
       for (let i = 1; i < dog.cycles.length; i++) {

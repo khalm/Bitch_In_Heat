@@ -74,7 +74,7 @@
     li { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
     .del-btn { background: none; color: #ef4444; border: none; padding: 4px 8px; width: auto; font-size: 0.8rem; margin: 0; cursor: pointer; }
 
-    /* Forstørret avatar-oppsett på prognosekortet */
+    /* Forstørret avatar på prognosekortet */
     .dog-avatar-wrapper {
       display: flex;
       align-items: center;
@@ -175,9 +175,9 @@
         
         <label>Velg rase/avatar</label>
         <div class="avatar-picker-container">
-          <!-- Spaniel (spanielAnim.webm forstørret) -->
+          <!-- Spaniel (spanielAnim-cropped.webm) -->
           <div class="avatar-opt selected" onclick="selectAvatarChoice('spaniel')" id="opt-spaniel">
-            <video src="spanielAnim.webm" autoplay loop muted playsinline></video>
+            <video src="spanielAnim-cropped.webm" autoplay loop muted playsinline></video>
             Spaniel
           </div>
 
@@ -284,7 +284,7 @@
 
     // Avatardefinisjoner
     const AVATARS = {
-      spaniel: `<video src="spanielAnim.webm" autoplay loop muted playsinline></video>`,
+      spaniel: `<video src="spanielAnim-cropped.webm" autoplay loop muted playsinline></video>`,
       golden: `
         <svg viewBox="0 0 80 80">
           <path class="anim-wag" d="M 28 50 Q 15 45 14 36 Q 20 40 28 47" fill="#d97706" />

@@ -74,15 +74,16 @@
     li { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
     .del-btn { background: none; color: #ef4444; border: none; padding: 4px 8px; width: auto; font-size: 0.8rem; margin: 0; cursor: pointer; }
 
-    /* Forstørret avatar på prognosekortet */
+    /* Stor avatar på prognosekortet (190px) */
     .dog-avatar-wrapper {
       display: flex;
       align-items: center;
       gap: 16px;
+      width: 100%;
     }
     .avatar-icon-box {
-      width: 140px;
-      height: 140px;
+      width: 190px;
+      height: 190px;
       background: transparent;
       border: none;
       display: flex;
@@ -93,13 +94,13 @@
     .avatar-icon-box video,
     .avatar-icon-box img,
     .avatar-icon-box svg {
-      width: 140px;
-      height: 140px;
+      width: 190px;
+      height: 190px;
       object-fit: contain;
       background: transparent;
     }
 
-    /* Fallback-animasjoner */
+    /* Fallback-animasjoner for SVG */
     @keyframes wagAnimation {
       0% { transform: rotate(-5deg); }
       50% { transform: rotate(26deg); }
@@ -117,22 +118,22 @@
       animation: breatheBody 1.3s ease-in-out infinite;
     }
 
-    /* Forstørret rasevelger */
+    /* Stor rasevelger (96px animasjoner) */
     .avatar-picker-container {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       overflow-x: auto;
-      padding: 6px 2px 12px 2px;
+      padding: 6px 2px 14px 2px;
       margin-bottom: 14px;
     }
     .avatar-opt {
-      flex: 0 0 100px;
+      flex: 0 0 120px;
       text-align: center;
-      padding: 10px 6px;
+      padding: 10px 8px;
       border: 2px solid var(--border);
       border-radius: 12px;
       cursor: pointer;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       background: var(--bg);
       transition: all 0.2s;
     }
@@ -144,8 +145,8 @@
     .avatar-opt video,
     .avatar-opt img,
     .avatar-opt svg {
-      width: 72px;
-      height: 72px;
+      width: 96px;
+      height: 96px;
       object-fit: contain;
       display: block;
       margin: 0 auto 6px auto;
@@ -242,10 +243,10 @@
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <div class="dog-avatar-wrapper">
           <div class="avatar-icon-box" id="currentDogAvatar">
-            <!-- Stor animasjon vises her (140px) -->
+            <!-- Ekstra stor animasjon (190px) -->
           </div>
           <div>
-            <h2 id="currentDogName" style="margin:0; font-size:1.45rem;"></h2>
+            <h2 id="currentDogName" style="margin:0; font-size:1.5rem;"></h2>
             <span class="status-badge" id="cycleIntervalBadge" style="margin-top:6px;"></span>
           </div>
         </div>

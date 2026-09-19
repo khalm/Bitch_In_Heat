@@ -7,7 +7,7 @@
   <title>BitchHeatr</title>
 
   <!-- PWA Manifest -->
-  <link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22BitchHeatr%22%2C%22short_name%22%3A%22BitchHeatr%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background-color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%23dc2626%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22desktop_icon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%22%7D%2C%7B%22src%22%3A%22desktop_icon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22maskable%22%7D%5D%7D">
+  <link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22BitchHeatr%22%2C%22short_name%22%3A%22BitchHeatr%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%23dc2626%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22desktop_icon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%22%7D%2C%7B%22src%22%3A%22desktop_icon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22maskable%22%7D%5D%7D">
 
   <style>
     :root {
@@ -90,12 +90,13 @@
       justify-content: center;
       flex-shrink: 0;
     }
+    .avatar-icon-box video,
     .avatar-icon-box img,
     .avatar-icon-box svg {
       width: 95px;
       height: 95px;
       object-fit: contain;
-      overflow: visible;
+      background: transparent;
     }
 
     /* Fallback-animasjoner */
@@ -140,6 +141,7 @@
       background: #fee2e2;
       font-weight: bold;
     }
+    .avatar-opt video,
     .avatar-opt img,
     .avatar-opt svg {
       width: 48px;
@@ -147,6 +149,7 @@
       object-fit: contain;
       display: block;
       margin: 0 auto 4px auto;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -172,9 +175,9 @@
         
         <label>Velg rase/avatar</label>
         <div class="avatar-picker-container">
-          <!-- Spaniel (spanielAnim.webp) -->
+          <!-- Spaniel (spanielAnim.webm) -->
           <div class="avatar-opt selected" onclick="selectAvatarChoice('spaniel')" id="opt-spaniel">
-            <img src="spanielAnim.webp" alt="Spaniel animasjon">
+            <video src="spanielAnim.webm" autoplay loop muted playsinline></video>
             Spaniel
           </div>
 
@@ -281,7 +284,7 @@
 
     // Avatardefinisjoner
     const AVATARS = {
-      spaniel: `<img src="spanielAnim.webp" alt="Spaniel animasjon">`,
+      spaniel: `<video src="spanielAnim.webm" autoplay loop muted playsinline></video>`,
       golden: `
         <svg viewBox="0 0 80 80">
           <path class="anim-wag" d="M 28 50 Q 15 45 14 36 Q 20 40 28 47" fill="#d97706" />
